@@ -26,6 +26,23 @@ const nextButton = document.getElementById("next-btn");
 let currentQuestionIndex = 0;
 let score = 0;
 
+// let [seconds, minutes] = [0,0];
+// let timeRef = document.querySelector(".timerCount");
+// let int = null;
+//
+// function displayTimer(){
+//     seconds += 10;
+//     if(seconds === 1){
+//         seconds++;
+//     }
+//     if(seconds === 60){
+//         seconds = 0;
+//         minutes++;
+//     }
+//     let m = minutes < 10 ? "0" + minutes : minutes;
+//     let s = seconds < 10 ? "0" + seconds : minutes;
+//     timeRef.innerHTML = `${m} : ${s}`
+// }
 
 function startQuiz(){
     currentQuestionIndex = 0;

@@ -51,7 +51,7 @@ li a:hover:not(.active) {
   background-color: whitesmoke;
   width: 90%;
   max-width: 600px;
-  margin: 100px auto 0;
+  margin: 10px auto 0;
   border-radius: 10px;
   padding: 30px;
   border: 2px solid black;
@@ -132,4 +132,21 @@ li a:hover:not(.active) {
 
 .incorrect{
   background: #ff9393;
+}
+
+.timer{
+  margin: auto;
+  width: 50%;
+  padding: 10px;
+  text-align: center;
+  padding-top: 30px;
+}
+
+.timerCount{
+  border: 2px solid black;
+  width: 10vw;
+  background: whitesmoke;
+  margin: auto;
+  padding: 10px;
+  border-radius: 5px;
 }
