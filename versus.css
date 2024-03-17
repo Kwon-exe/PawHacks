@@ -151,3 +151,34 @@ li a:hover:not(.active) {
     padding: 10px;
     border-radius: 5px;
 }
+
+.scoreDisplay1{
+    color: black;
+    float: right;
+    background: whitesmoke;
+    border: 2px solid black;
+    border-radius: 10px;
+    margin: 15px;
+    padding: 10px;
+    line-height: 5vh;
+    height: 5vh;
+    text-align: center;
+    width: 8vh;
+    font-size: 30px;
+    font-weight: 700;
+}
+.scoreDisplay2{
+    color: black;
+    float: left;
+    background: whitesmoke;
+    border: 2px solid black;
+    border-radius: 10px;
+    margin: 15px;
+    padding: 10px;
+    line-height: 5vh;
+    height: 5vh;
+    text-align: center;
+    width: 8vh;
+    font-size: 30px;
+    font-weight: 700;
+}

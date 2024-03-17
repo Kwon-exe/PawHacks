@@ -96,66 +96,59 @@ const nextButton = document.getElementById("next-btn");
 let currentQuestionIndex = 0;
 let score = 0;
 
-let [seconds, tenSeconds,minutes] = [0,0,0];
+let minutes = 5;
+let seconds = 0;
 let displayTime = document.getElementById("timerCount");
 let timer = null;
 
-function stopwatch(){
-    seconds++
-    if(seconds === 10){
-        seconds = 0;
-        tenSeconds++;
-    }
-    if(tenSeconds === 6){
-        tenSeconds = 0;
-        minutes++
-    }
-    displayTime.innerHTML = minutes + ":" + tenSeconds + seconds;
+function startTimer() {
+    timer = setInterval(updateTimer, 1000);
 }
-function watchStart(){
-    seconds = 0;
-    tenSeconds = 0;
-    minutes = 0;
-    if(timer!== null){
+
+function updateTimer() {
+    if (seconds === 0 && minutes === 0) {
         clearInterval(timer);
+        showScore();
+    } else {
+        if (seconds === 0) {
+            minutes--;
+            seconds = 59;
+        } else {
+            seconds--;
+        }
+        displayTime.textContent = `${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
     }
-    timer = setInterval(stopwatch,1000);
 }
 
-function watchStop(){
-    clearInterval(timer);
-}
-
-function startQuiz(){
+function startQuiz() {
     currentQuestionIndex = 0;
     score = 0;
-    nextButton.innerHTML = "next";
+    nextButton.textContent = "Next";
     showQuestion();
+    startTimer();
 }
 
-function showQuestion(){
-    watchStart();
+function showQuestion() {
     resetState();
     let currentQuestion = questions[currentQuestionIndex];
     let questionNo = currentQuestionIndex + 1;
-    questionElement.innerHTML = questionNo + ". " + currentQuestion.question;
+    questionElement.textContent = questionNo + ". " + currentQuestion.question;
 
     currentQuestion.answers.forEach(answer => {
         const button = document.createElement("button");
-        button.innerHTML = answer.text;
+        button.textContent = answer.text;
         button.classList.add("btn");
         answerButton.appendChild(button);
-        if(answer.correct){
+        if (answer.correct) {
             button.dataset.correct = answer.correct;
         }
         button.addEventListener("click", selectAnswer);
     });
 }
 
-function resetState(){
-    document.getElementById("timerCount").style.display = "block";
+function resetState() {
     nextButton.style.display = "none";
-    while(answerButton.firstChild){
+    while (answerButton.firstChild) {
         answerButton.removeChild(answerButton.firstChild);
     }
 }
@@ -179,28 +172,28 @@ function selectAnswer(e){
     nextButton.style.display = "block";
 }
 
-function showScore(){
+function showScore() {
+    clearInterval(timer);
     resetState();
-    questionElement.innerHTML = `You scored ${score} out of ${questions.length}!`;
-    nextButton.innerHTML = "Train Again";
+    questionElement.textContent = `You scored ${score} out of ${questions.length}!`;
+    nextButton.textContent = "Train Again";
     nextButton.style.display = "block";
 }
 
-function handleNextButton(){
+function handleNextButton() {
     currentQuestionIndex++;
-    if(currentQuestionIndex < questions.length){
+    if (currentQuestionIndex < questions.length) {
         showQuestion();
-        watchStart();
-    }else{
+        startTimer();
+    } else {
         showScore();
-        document.getElementById("timerCount").style.display = "none";
     }
 }
 
 nextButton.addEventListener("click", () => {
-    if(currentQuestionIndex < questions.length){
+    if (currentQuestionIndex < questions.length) {
         handleNextButton();
-    }else{
+    } else {
         startQuiz();
     }
 });
