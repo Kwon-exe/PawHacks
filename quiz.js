@@ -1,3 +1,4 @@
+// const unitScores = {};
 const questions = [
     {
         question: "If f(x) = x + 7 and g(x) = 7x, what is the value of 4f(2) − g(2)?",
@@ -164,11 +165,21 @@ function selectAnswer(e){
     watchStop();
     const selectedBtn = e.target;
     const isCorrect = selectedBtn.dataset.correct === "true";
+    // const unit = questions[currentQuestionIndex].unit;
     if(isCorrect){
         selectedBtn.classList.add("correct");
         score++;
+        // if (unitScores[unit] === undefined) {
+        //     unitScores[unit] = { total: 0, correct: 0 };
+        // }
+        // unitScores[unit].total++;
+        // unitScores[unit].correct++;
     }else{
         selectedBtn.classList.add("incorrect");
+        // if (unitScores[unit] === undefined) {
+        //     unitScores[unit] = { total: 0, correct: 0 };
+        // }
+        // unitScores[unit].total++;
     }
     Array.from(answerButton.children).forEach(button =>{
         if(button.dataset.correct === "true"){

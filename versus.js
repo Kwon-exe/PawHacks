@@ -101,6 +101,9 @@ let seconds = 0;
 let displayTime = document.getElementById("timerCount");
 let timer = null;
 
+let leftScore = 0;
+let rightScore = 0;
+
 function startTimer() {
     timer = setInterval(updateTimer, 1000);
 }
@@ -153,29 +156,51 @@ function resetState() {
     }
 }
 
-function selectAnswer(e){
-    watchStop();
+function selectAnswer(e) {
+    clearInterval(timer);
     const selectedBtn = e.target;
     const isCorrect = selectedBtn.dataset.correct === "true";
-    if(isCorrect){
+    if (isCorrect) {
         selectedBtn.classList.add("correct");
         score++;
-    }else{
+        if(currentQuestionIndex % 2 === 0){
+            leftScore+=5;
+        }
+        if(currentQuestionIndex % 2 === 1){
+            rightScore+=5
+        }
+    } else {
         selectedBtn.classList.add("incorrect");
+        if(currentQuestionIndex % 2 === 0){
+            leftScore-=10;
+        }
+        if(currentQuestionIndex % 2 === 1){
+            rightScore-=10
+        }
     }
-    Array.from(answerButton.children).forEach(button =>{
-        if(button.dataset.correct === "true"){
+    Array.from(answerButton.children).forEach(button => {
+        if (button.dataset.correct === "true") {
             button.classList.add("correct");
         }
         button.disabled = true;
     });
+    document.getElementById("left-score").innerHTML = leftScore;
+    document.getElementById("right-score").innerHTML = rightScore;
     nextButton.style.display = "block";
 }
 
 function showScore() {
     clearInterval(timer);
     resetState();
-    questionElement.textContent = `You scored ${score} out of ${questions.length}!`;
+    if(rightScore > leftScore){
+        questionElement.textContent = "right player won";
+    }
+    if(leftScore > rightScore){
+        questionElement.textContent = "left player won";
+    }
+    if(leftScore === rightScore){
+        questionElement.textContent = "tie!";
+    }
     nextButton.textContent = "Train Again";
     nextButton.style.display = "block";
 }
